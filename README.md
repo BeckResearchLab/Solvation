@@ -8,6 +8,28 @@ This repository contains code for predicting the aqueous solubility of organic m
 
 ## Usage
 
+
+```
+# pull the original PNNL codebase
+git submodule init
+git submodule update
+
+# make the patch set
+# this is not necessary since 2/19/2025 as the patch set is
+#./make_patches
+
+# apply the patch set
+# preserved in the patches directory
+./apply_patches
+
+1. downlaod data as old instructions below
+```
+
+
+
+
+## Old Usage
+
 1. **Download Data**: Download the dataset from [this link](https://figshare.com/s/542fb80e65742746603c) and save it as `data.csv` in the `./data` folder.
 
 2. **Generate Features**:
