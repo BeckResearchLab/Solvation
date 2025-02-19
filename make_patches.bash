@@ -7,5 +7,5 @@ do
 	infile=`echo $file | sed "s/pnnlsolpaper//g"`
 	outfile=$file
 	patchfile=`echo $file |sed "s/pnnlsolpaper/patches/g"`
-	diff -u $infile $outfile > $patchfile.patchfile
+	diff -u $outfile $infile > $patchfile.patchfile
 done
