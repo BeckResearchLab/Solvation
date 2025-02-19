@@ -1,0 +1,32 @@
+--- .//smi/smi_utils.py	2025-02-19 14:47:22.133101486 -0800
++++ ./pnnlsolpaper/smi/smi_utils.py	2025-02-19 14:48:04.963091674 -0800
+@@ -5,7 +5,7 @@
+ import os
+ from scipy.stats import spearmanr
+ from sklearn.metrics import mean_absolute_error
+-from . import config
++import config
+ 
+ def val_results(x_valx, y_valx, lc_name, modelx):
+ 
+@@ -54,13 +54,13 @@
+     smiles_len = (X_train > 0.0).sum(axis=1)
+     max_features = len(chars) + 1 
+     
+-    os.makedirs("smi_input", exist_ok=True)
+-    np.savetxt("./smi_input/x_train.txt", X_train)
+-    np.savetxt("./smi_input/x_val.txt", X_val)
+-    np.savetxt("./smi_input/x_test.txt", X_test)
+-    np.savetxt("./smi_input/y_train.txt", trainx.log_sol.values)
+-    np.savetxt("./smi_input/y_val.txt", valx.log_sol.values)
+-    np.savetxt("./smi_input/y_test.txt", testx.log_sol.values)
++    os.makedirs("input", exist_ok=True)
++    np.savetxt("./input/x_train.txt", X_train)
++    np.savetxt("./input/x_val.txt", X_val)
++    np.savetxt("./input/x_test.txt", X_test)
++    np.savetxt("./input/y_train.txt", trainx.log_sol.values)
++    np.savetxt("./input/y_val.txt", valx.log_sol.values)
++    np.savetxt("./input/y_test.txt", testx.log_sol.values)
+     
+     
+     return X_train, X_val, X_test, trainx.log_sol.values, valx.log_sol.values, testx.log_sol.values, \

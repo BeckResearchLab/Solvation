@@ -1,0 +1,14 @@
+--- .//gnn/config.py	2025-02-19 14:47:21.003101287 -0800
++++ ./pnnlsolpaper/gnn/config.py	2025-02-19 14:48:04.673091462 -0800
+@@ -1,8 +1,8 @@
+-data_dir = "/Users/anna/2024.10.29/Solvation/data/"
+-gnn_data_dir = "/Users/anna/2024.10.29/Solvation/data/"
++data_dir = "../data/"
++gnn_data_dir = "../data/"
+ n_features = 65
+ bs = 64
+ max_epochs = 1000
+ lr = 1e-3
+ patience=25
+-best_model = 'gnn/gnn_best.pt'
++best_model = 'gnn_best.pt'

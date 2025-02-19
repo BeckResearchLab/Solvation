@@ -1,0 +1,25 @@
+--- .//gnn/train.py	2025-02-19 14:47:21.093101303 -0800
++++ ./pnnlsolpaper/gnn/train.py	2025-02-19 14:48:04.703091484 -0800
+@@ -22,9 +22,10 @@
+ import pickle
+ import gzip, pickle
+ from torch_geometric.data import DataLoader
+-from . import gnn_utils
+-from . import gnn_model
+-from . import config
++import gnn_utils
++import gnn_model
++from gnn_model import GNN
++import config
+ import datetime
+ 
+ def run():
+@@ -54,7 +55,7 @@
+ 
+ 
+     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+-    model = gnn_model.GNN(n_features = n_features).to(device)
++    model = GNN(n_features = n_features).to(device)
+     adam = torch.optim.Adam(model.parameters(), lr = config.lr )
+     optimizer = adam
+     early_stopping = gnn_utils.EarlyStopping(patience = config.patience, verbose=True, chkpoint_name = config.best_model)

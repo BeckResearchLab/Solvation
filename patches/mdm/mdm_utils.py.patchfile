@@ -1,0 +1,17 @@
+--- .//mdm/mdm_utils.py	2025-02-19 14:47:21.323101344 -0800
++++ ./pnnlsolpaper/mdm/mdm_utils.py	2025-02-19 14:48:04.713091491 -0800
+@@ -6,7 +6,6 @@
+ from sklearn.preprocessing import StandardScaler
+ import numpy as np
+ import matplotlib.pyplot as plt
+-from . import config
+ 
+ def get_transformed_data(train,val,test, to_drop, y):
+ 
+@@ -90,4 +89,4 @@
+     plt.plot( y, pred, 'o')
+     plt.xlabel("True (logS)", fontsize=15, fontweight='bold');
+     plt.ylabel("Predicted (logS)", fontsize=15, fontweight='bold');
+-    plt.show()
++    plt.show()
+\ No newline at end of file

@@ -1,0 +1,13 @@
+--- .//mdm/config.py	2025-02-19 14:47:21.093101303 -0800
++++ ./pnnlsolpaper/mdm/config.py	2025-02-19 14:48:04.703091484 -0800
+@@ -1,6 +1,6 @@
+-data_dir = "/Users/anna/2024.10.29/Solvation/data/"
+-best_model = "mdm/mdm_best.h5"
++data_dir = "../data/"
++best_model = "mdm_best.h5"
+ max_epochs = 1000
+ batch_size = 64
+ patience=25
+-lr = 10**-3
++lr = 10**-3
+\ No newline at end of file
