@@ -8,12 +8,22 @@
 # mv solubility-prediction-paper/mdm mdm
 # 
 
-mkdir -p patches/smi patches/gnn patches/mdm
+# the modified files should be in the directories
+# pnnlsolpaper/smi
+# pnnlsolpaper/gnn
+# pnnlsolpaper/mdm
+# pnnlsolpaper/data
+# the original files should be in the directory solubility-prediction-paper
+# this can be obtained by 
+# git clone https://github.com/pnnl/solubility-prediction-paper
+
+mkdir -p patches/smi patches/gnn patches/mdm patches/data patches/sch
 
 for file in `find ./pnnlsolpaper -name '*.py'`
 do
-	infile=`echo $file | sed "s/pnnlsolpaper//g"`
-	outfile=$file
+	modfile=$file
+	origfile=`echo $file | sed "s/pnnlsolpaper/solubility-prediction-paper/g"`
 	patchfile=`echo $file |sed "s/pnnlsolpaper/patches/g"`
-	diff -u $outfile $infile > $patchfile.patchfile
+	#echo $origfile $modfile $patchfile.patchfile
+	diff -u $origfile $modfile > $patchfile.patchfile
 done
