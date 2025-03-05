@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# this file needs better instructions
+# e.g.
+# git clone https://github.com/pnnl/solubility-prediction-paper
+# mv solubility-prediction-paper/smi smi
+# mv solubility-prediction-paper/gnn gnn
+# mv solubility-prediction-paper/mdm mdm
+# 
+
 mkdir -p patches/smi patches/gnn patches/mdm
 
 for file in `find ./pnnlsolpaper -name '*.py'`
