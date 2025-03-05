@@ -1,0 +1,11 @@
+--- ./solubility-prediction-paper/data/create_data.py	2025-03-05 14:31:47.494295946 -0800
++++ ./pnnlsolpaper/data/create_data.py	2025-03-05 14:34:48.824298225 -0800
+@@ -130,7 +130,7 @@
+     
+     # drop other nan columns
+     df_3d = df_3d.astype(float)
+-    df_3d.dropna('columns', inplace=True)
++    df_3d.dropna(axis=1, inplace=True)
+     df_3d.reset_index(drop=True, inplace=True)
+ 
+     # add the important data
