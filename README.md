@@ -6,32 +6,24 @@
 
 This repository contains code for predicting the aqueous solubility of organic molecules using machine learning models. The models and dataset are based on the research paper: [Predicting Aqueous Solubility of Organic Molecules Using Deep Learning Models with Varied Molecular Representations](https://pubs.acs.org/doi/full/10.1021/acsomega.2c00642).
 
+
 ## Usage
 
-
-```
+1. **Pull Original Code** 
+  - Pull the pnnlsolpaper folder from the original repository:
+```sh
 # pull the original PNNL codebase
 git submodule init
 git submodule update
-
-# make the patch set
-# this is not necessary since 2/19/2025 as the patch set is
-bash make_patches.bash
-
-# apply the patch set
-# preserved in the patches directory
+```
+- Then apply the patch set:
+```sh
 bash apply_patches.bash
-
 ```
 
+2. **Download Data**: Download the dataset `dataset.csv` from [this link](https://figshare.com/s/542fb80e65742746603c) and save it as `data.csv` in the `./data` folder.
 
-
-
-## Old Usage
-
-1. **Download Data**: Download the dataset from [this link](https://figshare.com/s/542fb80e65742746603c) and save it as `data.csv` in the `./data` folder.
-
-2. **Generate Features**:
+3. **Generate Features**:
     - Generate Pybel coordinates and Molecular Dynamics (MDM) features by running `create_data.py` in the `./data` folder:
       ```sh
       cd ./pnnlsolpaper/data
@@ -42,7 +34,7 @@ bash apply_patches.bash
       cd ../..
       ```
 
-3. **Train Models**:
+4. **Train Models**:
     - To train the MDM model, run `train.py` in the `./mdm` folder as a package:
       ```sh
       python -m pnnlsol/mdm/train
@@ -56,7 +48,7 @@ bash apply_patches.bash
       python -m pnnlsol/smi/train
       ```
 
-4. **Make Predictions**:
+5. **Make Predictions**:
     <br>(NOTE: this step is optional)
     - Use the `predict.ipynb` files in each model's folder to make predictions (note: this step is optional):
       ```sh
@@ -69,7 +61,7 @@ bash apply_patches.bash
       cd ../..
       ```
 
-5. **Ensemble Models**:
+6. **Ensemble Models**:
     - To ensemble the models, run the following scripts from the ensemble folder:
       ```sh
       cd ensemble/
@@ -78,7 +70,7 @@ bash apply_patches.bash
       python KNN.py
       ```
 
-6. **Compare Predictions**:
+7. **Compare Predictions**:
     - To compare predictions from individual models with ensemble methods, use the `ensemble_prediction.ipynb` notebook:
       ```sh
       jupyter notebook ensemble_prediction.ipynb
