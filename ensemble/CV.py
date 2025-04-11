@@ -10,14 +10,14 @@ from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import KFold
 import optuna
 
-solvation_path = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+solvation_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../pnnlsolpaper"))
 sys.path.append(solvation_path)
 
 import smi
 import mdm
 import gnn
 
-DATA_PATH = '../data/'
+DATA_PATH = '../pnnlsolpaper/data/'
 BS = gnn.config.bs
 N_SPLITS = 10  # Number of folds for cross-validation
 
@@ -32,9 +32,9 @@ def setup_data_loader(data):
 def setup_models():
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     gnn_model = gnn.gnn_model.GNN(n_features=gnn.config.n_features).to(device)
-    gnn_model.load_state_dict(torch.load(gnn.config.best_model))
-    smi_model = load_model(smi.config.best_model)
-    mdm_model = load_model(mdm.config.best_model)
+    gnn_model.load_state_dict(torch.load(os.path.join(solvation_path, "gnn", gnn.config.best_model))) #"/home/roberto/beck/Solvation/pnnlsolpaper/gnn/gnn_best.pt"
+    smi_model = load_model(os.path.join(solvation_path, "smi", smi.config.best_model))
+    mdm_model = load_model(os.path.join(solvation_path, "mdm", mdm.config.best_model))
     return gnn_model, smi_model, mdm_model, device
 
 def objective(trial, val_data, smi_x_val, mdm_x_val, y_val, gnn_model, smi_model, mdm_model, device):
@@ -76,9 +76,9 @@ def objective(trial, val_data, smi_x_val, mdm_x_val, y_val, gnn_model, smi_model
 
 def main():
     val_data = load_pickled_data(os.path.join(DATA_PATH, "val.pkl.gz"))
-    smi_x_val = np.loadtxt("../smi/smi_input/x_val.txt")
-    mdm_x_val = np.loadtxt("../mdm/input/x_val.txt")
-    y_val = np.loadtxt("../input/y_val.txt")
+    smi_x_val = np.loadtxt("../pnnlsolpaper/smi/input/x_val.txt")
+    mdm_x_val = np.loadtxt("../pnnlsolpaper/mdm/input/x_val.txt")
+    y_val = np.loadtxt("../pnnlsolpaper/mdm/input/y_val.txt")
 
     gnn_model, smi_model, mdm_model, device = setup_models()
 

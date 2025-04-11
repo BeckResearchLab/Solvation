@@ -1,11 +1,11 @@
 #!/bin/bash
 
-mkdir -p patches/smi patches/gnn patches/mdm
+mkdir -p patches/smi patches/gnn patches/mdm patches/data
 
-for file in `find ./pnnlsolpaper -name '*.py'`
+for file in `find ./src -name '*.py'`
 do
-	infile=`echo $file | sed "s/pnnlsolpaper//g"`
-	outfile=$file
-	patchfile=`echo $file |sed "s/pnnlsolpaper/patches/g"`
-	diff -u $outfile $infile > $patchfile.patchfile
+	outfile=`echo $file | sed "s/src/pnnlsolpaper/g"`
+	infile=$file
+	patchfile=`echo $file |sed "s/src/patches/g"`
+	diff -u -N $outfile $infile > $patchfile.patchfile
 done

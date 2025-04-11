@@ -16,13 +16,12 @@ git submodule update
 
 # make the patch set
 # this is not necessary since 2/19/2025 as the patch set is
-#./make_patches
+bash make_patches.bash
 
 # apply the patch set
 # preserved in the patches directory
-./apply_patches
+bash apply_patches.bash
 
-1. downlaod data as old instructions below
 ```
 
 
@@ -35,39 +34,45 @@ git submodule update
 2. **Generate Features**:
     - Generate Pybel coordinates and Molecular Dynamics (MDM) features by running `create_data.py` in the `./data` folder:
       ```sh
-      cd ./data
+      cd ./pnnlsolpaper/data
       python create_data.py
+      ```
+    - Then return to the root folder
+      ```sh
+      cd ../..
       ```
 
 3. **Train Models**:
-    - To train the MDM model, run `train.py` in the `./mdm` folder:
+    - To train the MDM model, run `train.py` in the `./mdm` folder as a package:
       ```sh
-      cd ../mdm
-      python train.py
+      python -m pnnlsol/mdm/train
       ```
     - To train the GNN model, run `train.py` in the `./gnn` folder:
       ```sh
-      cd ../gnn
-      python train.py
+      python -m pnnlsol/gnn/train
       ```
     - To train the SMI model, run `train.py` in the `./smi` folder:
       ```sh
-      cd ../smi
-      python train.py
+      python -m pnnlsol/smi/train
       ```
 
 4. **Make Predictions**:
-    - Use the `predict.ipynb` files in each model's folder to make predictions:
+    <br>(NOTE: this step is optional)
+    - Use the `predict.ipynb` files in each model's folder to make predictions (note: this step is optional):
       ```sh
-      cd ../mdm
+      cd pnnlsolpaper/mdm/
       jupyter notebook predict.ipynb
       ```
       Repeat the above steps for the `gnn` and `smi` folders.
+    - Afterwards return to the root directory:
+      ```sh
+      cd ../..
+      ```
 
 5. **Ensemble Models**:
-    - To ensemble the models, run the following scripts:
+    - To ensemble the models, run the following scripts from the ensemble folder:
       ```sh
-      cd ../ensemble
+      cd ensemble/
       python CV.py
       python Optuna.py
       python KNN.py

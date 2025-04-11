@@ -1,0 +1,11 @@
+--- ./pnnlsolpaper/data/create_data.py	2025-04-10 17:48:38.377438473 -0700
++++ ./src/data/create_data.py	2025-04-10 17:43:35.277425810 -0700
+@@ -130,7 +130,7 @@
+     
+     # drop other nan columns
+     df_3d = df_3d.astype(float)
+-    df_3d.dropna('columns', inplace=True)
++    df_3d.dropna(axis=1, inplace=True)
+     df_3d.reset_index(drop=True, inplace=True)
+ 
+     # add the important data

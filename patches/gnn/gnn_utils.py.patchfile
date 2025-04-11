@@ -1,22 +1,54 @@
---- .//gnn/gnn_utils.py	2025-02-19 14:47:21.093101303 -0800
-+++ ./pnnlsolpaper/gnn/gnn_utils.py	2025-02-19 14:48:04.703091484 -0800
+--- ./pnnlsolpaper/gnn/gnn_utils.py	2025-04-10 17:48:38.427438310 -0700
++++ ./src/gnn/gnn_utils.py	2025-04-09 20:01:43.572836301 -0700
 @@ -32,7 +32,7 @@
  from scipy.stats import spearmanr
  
  import pickle, gzip
--from . import config
-+import config
+-import config
++from . import config
  
  
  def set_seed(seed):
-@@ -312,10 +312,6 @@
-             self.counter = 0
+@@ -232,9 +232,9 @@
  
-     def save_checkpoint(self, val_loss, model):
--	# Ensure the parent directory exists
--        checkpoint_dir = os.path.dirname(self.chkpoint_name)
--        if checkpoint_dir and not os.path.exists(checkpoint_dir):
--            os.makedirs(checkpoint_dir)
+ def create_data():
+     
+-    train = pd.read_csv(config.data_dir+"train.csv")
+-    val = pd.read_csv(config.data_dir+"val.csv")
+-    test = pd.read_csv(config.data_dir+"test.csv")
++    train = pd.read_csv(create_file_path(config.data_dir, "train.csv"))
++    val = pd.read_csv(create_file_path(config.data_dir, "val.csv"))
++    test = pd.read_csv(create_file_path(config.data_dir, "test.csv"))
+ 
+     train.reset_index(drop=True, inplace=True)
+     val.reset_index(drop=True, inplace=True)
+@@ -263,11 +263,11 @@
+     print("creating test data")
+     test_X = create_data_list(test)
+ 
+-    with gzip.open(config.gnn_data_dir+"train.pkl.gz", "wb") as f:
++    with gzip.open(create_file_path(config.gnn_data_dir, "train.pkl.gz"), "wb") as f:
+         pickle.dump(train_X, f, protocol=4)
+-    with gzip.open(config.gnn_data_dir+"val.pkl.gz", "wb") as f:
++    with gzip.open(create_file_path(config.gnn_data_dir, "val.pkl.gz"), "wb") as f:
+         pickle.dump(val_X, f, protocol=4)
+-    with gzip.open(config.gnn_data_dir+"test.pkl.gz", "wb") as f:
++    with gzip.open(create_file_path(config.gnn_data_dir, "test.pkl.gz"), "wb") as f:
+         pickle.dump(test_X, f, protocol=4)
+         
+         
+@@ -315,7 +315,7 @@
          '''Saves model when validation loss decrease.'''
          if self.verbose:
              print(f'Validation loss decreased ({self.val_loss_min:.6f} --> {val_loss:.6f}).  Saving model ...')
+-        torch.save(model.state_dict(), self.chkpoint_name)
++        torch.save(model.state_dict(), create_file_path(self.chkpoint_name))
+         self.val_loss_min = val_loss
+ 
+         
+@@ -372,3 +372,5 @@
+     plt.ylabel("Predicted (logS)", fontsize=15, fontweight='bold');
+     plt.show()
+ 
++def create_file_path(*args):
++    return os.path.join(os.path.dirname(__file__), *args)
