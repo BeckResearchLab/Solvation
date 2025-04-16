@@ -37,15 +37,15 @@ bash apply_patches.bash
 4. **Train Models**:
     - To train the MDM model, run `pnnlsolpaper/mdm/train.py` as a package (command written assuming the root directory):
       ```sh
-      python -m pnnlsol.mdm.train
+      python -m pnnlsolpaper.mdm.train
       ```
     - To train the GNN model, run `pnnlsolpaper/gnn/train.py`:
       ```sh
-      python -m pnnlsol.gnn.train
+      python -m pnnlsolpaper.gnn.train
       ```
     - To train the SMI model, run `pnnlsolpaper/smi/train.py`:
       ```sh
-      python -m pnnlsol.smi.train
+      python -m pnnlsolpaper.smi.train
       ```
 
 5. **Make Predictions**:

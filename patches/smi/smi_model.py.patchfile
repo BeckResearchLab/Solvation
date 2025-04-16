@@ -1,4 +1,4 @@
---- ./pnnlsolpaper/smi/smi_model.py	2025-04-10 17:48:38.467438176 -0700
+--- ./pnnlsolpaper/smi/smi_model.py	2025-04-16 00:56:12.253713165 -0700
 +++ ./src/smi/smi_model.py	2025-04-02 14:00:21.722996700 -0700
 @@ -1,9 +1,8 @@
  import keras

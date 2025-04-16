@@ -1,4 +1,4 @@
---- ./pnnlsolpaper/gnn/gnn_utils.py	2025-04-10 17:48:38.427438310 -0700
+--- ./pnnlsolpaper/gnn/gnn_utils.py	2025-04-16 00:56:12.232046336 -0700
 +++ ./src/gnn/gnn_utils.py	2025-04-09 20:01:43.572836301 -0700
 @@ -32,7 +32,7 @@
  from scipy.stats import spearmanr
