@@ -1,4 +1,4 @@
---- ./pnnlsolpaper/gnn/train.py	2025-04-16 00:56:12.232046336 -0700
+--- ./pnnlsolpaper/gnn/train.py	2025-04-21 11:40:06.628994003 -0700
 +++ ./src/gnn/train.py	2025-04-09 20:18:14.845395305 -0700
 @@ -22,22 +22,21 @@
  import pickle
