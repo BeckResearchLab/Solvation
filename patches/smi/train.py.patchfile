@@ -1,4 +1,4 @@
---- ./pnnlsolpaper/smi/train.py	2025-04-21 11:40:07.507066609 -0700
+--- ./pnnlsolpaper/smi/train.py	2025-04-28 11:36:16.099041722 -0700
 +++ ./src/smi/train.py	2025-04-09 20:19:40.054417215 -0700
 @@ -1,7 +1,6 @@
  import keras

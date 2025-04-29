@@ -1,4 +1,4 @@
---- ./pnnlsolpaper/smi/smi_utils.py	2025-04-21 11:40:07.507066609 -0700
+--- ./pnnlsolpaper/smi/smi_utils.py	2025-04-28 11:36:16.099041722 -0700
 +++ ./src/smi/smi_utils.py	2025-04-09 20:19:30.222047437 -0700
 @@ -5,7 +5,7 @@
  import os

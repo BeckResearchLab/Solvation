@@ -1,4 +1,4 @@
---- ./pnnlsolpaper/mdm/train.py	2025-04-21 11:40:06.669834590 -0700
+--- ./pnnlsolpaper/mdm/train.py	2025-04-28 11:36:15.699041991 -0700
 +++ ./src/mdm/train.py	2025-04-09 20:17:41.390096156 -0700
 @@ -18,18 +18,19 @@
  from sklearn.metrics import mean_absolute_error
