@@ -21,7 +21,7 @@ git submodule update
 bash apply_patches.bash
 ```
 
-2. **Download Data**: Download the dataset `dataset.csv` from [this link](https://figshare.com/s/542fb80e65742746603c) and save it as `data.csv` in the `./data` folder.
+2. **Download Data**: Download the dataset file named `dataset.csv` from [this link](https://figshare.com/s/542fb80e65742746603c) and save it as `data.csv` in the `./data` folder.
 
 3. **Generate Features**:
     - Generate Pybel coordinates and Molecular Dynamics (MDM) features by running `create_data.py` in the `./data` folder:
