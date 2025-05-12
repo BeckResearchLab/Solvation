@@ -1,25 +1,51 @@
---- .//gnn/train.py	2025-02-19 14:47:21.093101303 -0800
-+++ ./pnnlsolpaper/gnn/train.py	2025-02-19 14:48:04.703091484 -0800
-@@ -22,9 +22,10 @@
+--- ./pnnlsolpaper/gnn/train.py	2025-04-28 11:36:15.679042004 -0700
++++ ./src/gnn/train.py	2025-04-09 20:18:14.845395305 -0700
+@@ -22,22 +22,21 @@
  import pickle
  import gzip, pickle
  from torch_geometric.data import DataLoader
--from . import gnn_utils
--from . import gnn_model
--from . import config
-+import gnn_utils
-+import gnn_model
-+from gnn_model import GNN
-+import config
+-import gnn_utils
+-import gnn_model
+-from gnn_model import GNN
+-import config
++from . import gnn_utils
++from . import gnn_model
++from . import config
++from .gnn_utils import create_file_path
  import datetime
  
  def run():
-@@ -54,7 +55,7 @@
+-    
++    print(os.path.dirname(__file__))
+     # create data
+     gnn_utils.create_data()
+-
+-    with gzip.open(f"{config.data_dir}train.pkl.gz", "rb") as f:
++    with gzip.open(create_file_path(f"{config.data_dir}train.pkl.gz"), "rb") as f:
+         train_X = pickle.load(f)
+-    with gzip.open(f"{config.data_dir}val.pkl.gz", "rb") as f:
++    with gzip.open(create_file_path(f"{config.data_dir}val.pkl.gz"), "rb") as f:
+         val_X = pickle.load(f)
+-    with gzip.open(f"{config.data_dir}test.pkl.gz", "rb") as f:
++    with gzip.open(create_file_path(f"{config.data_dir}test.pkl.gz"), "rb") as f:
+         test_X = pickle.load(f)
+ 
+ 
+@@ -55,7 +54,7 @@
  
  
      device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
--    model = gnn_model.GNN(n_features = n_features).to(device)
-+    model = GNN(n_features = n_features).to(device)
+-    model = GNN(n_features = n_features).to(device)
++    model = gnn_model.GNN(n_features = n_features).to(device)
      adam = torch.optim.Adam(model.parameters(), lr = config.lr )
      optimizer = adam
      early_stopping = gnn_utils.EarlyStopping(patience = config.patience, verbose=True, chkpoint_name = config.best_model)
+@@ -93,7 +92,7 @@
+         print(f'Epoch: {epoch}, Train_rmse: {train_rmse:.3}, Val_rmse: {val_rmse:.3}')
+ 
+     print(f"training completed at {datetime.datetime.now()}")
+-    
++
+     
+ if __name__ == "__main__":
+     run()

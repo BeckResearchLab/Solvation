@@ -1,3 +1,4 @@
+import sys
 import os
 import numpy as np
 import gzip
@@ -5,6 +6,10 @@ import pickle
 from keras.models import load_model
 from torch_geometric.data import DataLoader
 import torch
+
+solvation_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../pnnlsolpaper"))
+sys.path.append(solvation_path)
+
 import smi
 import mdm
 import gnn
@@ -20,8 +25,8 @@ def load_pickled_data(file_path):
 
 # Setup data loaders
 def setup_data_loaders(data_path, batch_size):
-    val_X = load_pickled_data(os.path.join(data_path, "val.pkl.gz"))
-    test_X = load_pickled_data(os.path.join(data_path, "test.pkl.gz"))
+    val_X = load_pickled_data(os.path.join(solvation_path, data_path, "val.pkl.gz"))
+    test_X = load_pickled_data(os.path.join(solvation_path, data_path, "test.pkl.gz"))
     
     val_loader = DataLoader(val_X, batch_size=batch_size, shuffle=False, drop_last=False)
     test_loader = DataLoader(test_X, batch_size=batch_size, shuffle=False, drop_last=False)
@@ -30,19 +35,19 @@ def setup_data_loaders(data_path, batch_size):
 # Load models and make predictions
 def load_models_and_predict(val_loader, test_loader, device):
     gnn_model = gnn.gnn_model.GNN(n_features=gnn.config.n_features).to(device)
-    gnn_model.load_state_dict(torch.load(gnn.config.best_model))
+    gnn_model.load_state_dict(torch.load(os.path.join(solvation_path, "gnn", gnn.config.best_model)))
     _, gnn_val_pred = gnn.gnn_utils.test_fn_plotting(val_loader, gnn_model, device)
     _, gnn_test_pred = gnn.gnn_utils.test_fn_plotting(test_loader, gnn_model, device)
 
-    smi_x_val = np.loadtxt("./data/x_val.txt")
-    smi_x_test = np.loadtxt("./data/x_test.txt")
-    smi_model = load_model(smi.config.best_model)
+    smi_x_val = np.loadtxt(os.path.join(solvation_path, "smi/input/x_val.txt"))
+    smi_x_test = np.loadtxt(os.path.join(solvation_path, "smi/input/x_test.txt"))
+    smi_model = load_model(os.path.join(solvation_path, "smi", smi.config.best_model))
     smi_val_pred = smi_model.predict(smi_x_val).ravel()
     smi_test_pred = smi_model.predict(smi_x_test).ravel()
 
-    mdm_x_val = np.loadtxt("./data/x_val.txt")
-    mdm_x_test = np.loadtxt("./data/x_test.txt")
-    mdm_model = load_model(mdm.config.best_model)
+    mdm_x_val = np.loadtxt(os.path.join(solvation_path,"mdm/input/x_val.txt"))
+    mdm_x_test = np.loadtxt(os.path.join(solvation_path,"mdm/input/x_test.txt"))
+    mdm_model = load_model(os.path.join(solvation_path, "mdm", mdm.config.best_model))
     mdm_val_pred = mdm_model.predict(mdm_x_val).reshape(-1,)
     mdm_test_pred = mdm_model.predict(mdm_x_test).reshape(-1,)
 
@@ -72,8 +77,8 @@ def main():
     val_loader, test_loader = setup_data_loaders(data_path, batch_size)
     gnn_val_pred, smi_val_pred, mdm_val_pred, gnn_test_pred, smi_test_pred, mdm_test_pred = load_models_and_predict(val_loader, test_loader, device)
 
-    valid_data = pd.read_csv('./data/val.csv')
-    test_data = pd.read_csv("./data/test.csv")
+    valid_data = pd.read_csv(os.path.join(solvation_path, 'data/val.csv'))
+    test_data = pd.read_csv(os.path.join(solvation_path, 'data/test.csv'))
     y_true = valid_data['log_sol']
 
     valid_data['gnn_predict'] = pd.Series(gnn_val_pred)

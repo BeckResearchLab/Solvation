@@ -1,0 +1,7 @@
+--- ./pnnlsolpaper/smi/__init__.py	1969-12-31 16:00:00.000000000 -0800
++++ ./src/smi/__init__.py	2025-04-02 13:59:04.241348400 -0700
+@@ -0,0 +1,4 @@
++from . import config
++from . import smi_utils
++from . import smi_model
++from . import train

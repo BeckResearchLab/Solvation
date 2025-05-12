@@ -1,7 +1,13 @@
 #!/bin/bash
 
-for file in `find ./pnnlsolpaper -name '*.py'`
+for patchfile in `find ./patches -name '*.patchfile'`
 do
-	patchfile=`echo $file |sed "s/pnnlsolpaper/patches/g"`
-	patch $file $patchfile.patchfile
+	cutname=${patchfile%.*}
+	# echo $cutname
+	file=`echo $cutname |sed "s/patches/pnnlsolpaper/g"`
+	# echo $file
+	# if [ ! -f $file ]; then
+	# 	echo "" > $file
+	# fi
+	patch $file $patchfile
 done

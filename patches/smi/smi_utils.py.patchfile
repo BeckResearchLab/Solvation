@@ -1,11 +1,11 @@
---- .//smi/smi_utils.py	2025-02-19 14:47:22.133101486 -0800
-+++ ./pnnlsolpaper/smi/smi_utils.py	2025-02-19 14:48:04.963091674 -0800
+--- ./pnnlsolpaper/smi/smi_utils.py	2025-04-28 11:36:16.099041722 -0700
++++ ./src/smi/smi_utils.py	2025-04-09 20:19:30.222047437 -0700
 @@ -5,7 +5,7 @@
  import os
  from scipy.stats import spearmanr
  from sklearn.metrics import mean_absolute_error
--from . import config
-+import config
+-import config
++from . import config
  
  def val_results(x_valx, y_valx, lc_name, modelx):
  
@@ -13,20 +13,27 @@
      smiles_len = (X_train > 0.0).sum(axis=1)
      max_features = len(chars) + 1 
      
--    os.makedirs("smi_input", exist_ok=True)
--    np.savetxt("./smi_input/x_train.txt", X_train)
--    np.savetxt("./smi_input/x_val.txt", X_val)
--    np.savetxt("./smi_input/x_test.txt", X_test)
--    np.savetxt("./smi_input/y_train.txt", trainx.log_sol.values)
--    np.savetxt("./smi_input/y_val.txt", valx.log_sol.values)
--    np.savetxt("./smi_input/y_test.txt", testx.log_sol.values)
-+    os.makedirs("input", exist_ok=True)
-+    np.savetxt("./input/x_train.txt", X_train)
-+    np.savetxt("./input/x_val.txt", X_val)
-+    np.savetxt("./input/x_test.txt", X_test)
-+    np.savetxt("./input/y_train.txt", trainx.log_sol.values)
-+    np.savetxt("./input/y_val.txt", valx.log_sol.values)
-+    np.savetxt("./input/y_test.txt", testx.log_sol.values)
+-    os.makedirs("input", exist_ok=True)
+-    np.savetxt("./input/x_train.txt", X_train)
+-    np.savetxt("./input/x_val.txt", X_val)
+-    np.savetxt("./input/x_test.txt", X_test)
+-    np.savetxt("./input/y_train.txt", trainx.log_sol.values)
+-    np.savetxt("./input/y_val.txt", valx.log_sol.values)
+-    np.savetxt("./input/y_test.txt", testx.log_sol.values)
++    os.makedirs(create_file_path("input"), exist_ok=True)
++    np.savetxt(create_file_path("./input/x_train.txt"), X_train)
++    np.savetxt(create_file_path("./input/x_val.txt"), X_val)
++    np.savetxt(create_file_path("./input/x_test.txt"), X_test)
++    np.savetxt(create_file_path("./input/y_train.txt"), trainx.log_sol.values)
++    np.savetxt(create_file_path("./input/y_val.txt"), valx.log_sol.values)
++    np.savetxt(create_file_path("./input/y_test.txt"), testx.log_sol.values)
      
      
      return X_train, X_val, X_test, trainx.log_sol.values, valx.log_sol.values, testx.log_sol.values, \
+@@ -86,3 +86,6 @@
+     plt.xlabel("True (logS)", fontsize=15, fontweight='bold');
+     plt.ylabel("Predicted (logS)", fontsize=15, fontweight='bold');
+     plt.show()
++
++def create_file_path(*args):
++    return os.path.join(os.path.dirname(__file__), *args)
